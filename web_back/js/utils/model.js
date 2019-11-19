@@ -23,12 +23,22 @@ var user = {
         logout:function (callback) {
             console.log(callback);
             
-            $.post("http://localhost:8000/admin/logout",function(res){
+            $.post(local+"/admin/logout",function(res){
 
                  callback(res);
                  console.log(res);
                  
              })
+        },
+
+        
+        // 获取信息
+        loginfo:function (callback) {
+            $.get(local+"/admin/getuser",function (res) {
+                
+                callback(res)
+                
+            })
         }
 }
 

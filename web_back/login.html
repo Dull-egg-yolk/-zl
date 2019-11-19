@@ -25,12 +25,40 @@
                 <i class="iconfont icon-key"></i>
                 <input type="text" class="input_txt" placeholder="邮箱/手机号">
                 <input type="password" class="input_pass" placeholder="密码">
-                <input type="submit" class="input_sub" value="登 录">
+                <input type="button" class="input_sub" value="登 录">
             </form>
         </div>
 
     </div> 
 
+<!-- 引入jQuery -->
+<script src="./js/jquery-1.12.4.min.js"></script>
+<script src="./js/utils/model.js"></script>
+<script>
+
+        // 获取信息用户登录
+        // 点击按钮
+        $(".input_sub").click(function () {
+            // 
+            var username = $(".input_txt").val().trim();
+            var password = $(".input_pass").val().trim();
+            if(username === "" || password === ""){
+                            alert("必须输入信息")
+                            return;
+                        }
+            // 模块化思想 调用 model.js 三个实参
+            user.login(username,password,function (res) {
+                    console.log(res);
+                    if(res.code === 200){
+                        location.href = "./index.html"
+                    }else{
+                        alert("用户名密码错误");
+                    }
+           })
+            
+        })
+
+</script>
 </body>
 
 </html>

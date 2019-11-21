@@ -107,6 +107,13 @@
     <script src="./js/jquery-1.12.4.min.js"></script>
     <script src="./js/utils/model.js"></script>
     <script>
+           // 获取用户信息
+           user.loginfo(function (res) {
+                console.log(res);
+                $("#Nickname").text(res.data.nickname);
+                $(".pic").prop("src",res.data.user_pic);
+        })
+      
         // 点击退出
         $("#t_btn").click(function () {
             // 弹出框 询问是否退出 确定和取消 
@@ -124,13 +131,7 @@
         })
 
 
-        // 获取用户信息
-        user.loginfo(function (res) {
-                console.log(res);
-                $("#Nickname").text(res.data.nickname);
-                $(".pic").prop("src",res.data.user_pic);
-        })
-      
+     
     </script>
 
 </body>

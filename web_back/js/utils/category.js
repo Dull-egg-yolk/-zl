@@ -8,5 +8,24 @@ var category = {
         }
            
         )
+    },
+    del:function (id,callback) {
+        $.post(PROT.category_del,{id:id},function (res) {
+            callback(res)
+        })
+    },
+
+    add:function (name,slug,callback) {
+        
+        $.post(PROT.category_add,
+            {
+                name:name,
+                slug:slug
+        },
+        function (res) {
+                callback(res)
+            }
+        )
     }
+    
 }

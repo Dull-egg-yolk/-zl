@@ -6,4 +6,6 @@ var PROT = {
     user_loginfo:baseURL+"/admin/getuser",
 
     category_show:baseURL+"/admin/category_search",
+    category_del:baseURL+"/admin/category_delete",
+    category_add:baseURL+"/admin/category_add",
 }

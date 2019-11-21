@@ -8,4 +8,5 @@ var PROT = {
     category_show:baseURL+"/admin/category_search",
     category_del:baseURL+"/admin/category_delete",
     category_add:baseURL+"/admin/category_add",
+    category_edit:baseURL+"/admin/category_edit"
 }

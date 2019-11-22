@@ -30,9 +30,9 @@
                             <option>爱旅行</option> -->
                         </select>
                         <select id="selStatus" name="" class="form-control input-sm">
-                            <option>所有状态</option>
-                            <option value="drafted">草稿</option>
-                            <option value="published">已发布</option>
+                            <option value="">所有状态</option>
+                            <option value="草稿">草稿</option>
+                            <option value="已发布">已发布</option>
                         </select>
                         <button id="btnSearch" class="btn btn-default btn-sm">筛选</button>
                     </form>
@@ -70,7 +70,7 @@
             </table>
 
             <div class="row text-center">
-                <ul class="pagination pagination-sm">
+                <!-- <ul class="pagination pagination-sm">
                     <li class="page-item first disabled"><a href="#" class="page-link">首页</a></li>
                     <li class="page-item prev disabled"><a href="#" class="page-link">上一页</a></li>
                     <li class="page-item active"><a href="#" class="page-link">1</a></li>
@@ -82,7 +82,8 @@
                     <li class="page-item"><a href="#" class="page-link">7</a></li>
                     <li class="page-item next"><a href="#" class="page-link">下一页</a></li>
                     <li class="page-item last"><a href="#" class="page-link">尾页</a></li>
-                </ul>
+                </ul> -->
+                <ul id="pagination-demo" class="pagination-sm"></ul>
             </div>
 
         </div>
@@ -96,6 +97,7 @@
     </script>
     <!-- 引入文件 -->
     <script src="./js/template-web.js"></script>
+    <!-- 引入插件 -->
     <script src="./js/jquery.twbsPagination.js"></script>
     <script src="./js/utils/port.js"></script>
     <script src="./js/utils/category.js"></script>
@@ -140,24 +142,42 @@
     </script>
 
     <script>
+        // 全局变量
+        var curPage = 1; // 用来保存当前要查询的页数
+        var type = '';   // 当前要搜索的文章类型.要保存是文章类型的编号，而不是文本
+        var status = ''; // 当前要搜索的文章状态
+        var curTotalPage = ''; // 当前查询的总页数
         // 调用显示数据
        function getShow() {
-            article.show(function (res) {
-                console.log(res);
+            article.show({'page': curPage, 'type': type, 'status': status},function (res) {
+                // console.log(res);
                 var htmlStr = template("table_temp", res)
                 $("#tempcontent").html(htmlStr)
+                // 分页插件
+                // 官网给的 复制粘贴
+                // 上面放给的ul 也是固定的 复制粘贴
+                $('#pagination-demo').twbsPagination({
+                    totalPages: res.totalPage, // 总页数在res里
+                    visiblePages: 6, // 可见页数
+                    initiateStartPageClick: false,
+                    first:'首页',
+                    prev:'上一页',
+                    next:'下一页',
+                    last:'尾页',
+                    onPageClick: function (event, page) {
+                        // console.log(page);
+                        
+                        curPage = page
+                        getShow()
+                    }
+                });
+
+
             })
        }
        getShow();
     
     // ################################################################### 
-
-
-    // 分页插件
-
-    
-
-
 
 
     // 实现删除
@@ -176,7 +196,17 @@
     })
 
 
-    
+    // 点击筛选
+    $('#btnSearch').click(function () {
+        // 获取两个框的值 类别 和状态
+        type = $("#selStatus").val()
+        status = $("#selCategory").val()
+        curPage = 1
+        getShow();
+    })
+
+// ############################################################
+    // 点击发表文章
 </script>
 </body>
 

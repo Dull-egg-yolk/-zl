@@ -1,8 +1,11 @@
 var article = {
     show:function (obj,callback) {
-        $.get(PROT.article_show,{page:obj.page},function (res) {
-            console.log(res);
+        $.get(PROT.article_show,
+            {page:obj.page,state:obj.state,type:obj.type},
+            function (res) {
+            
             callback(res)
+            console.log(res);
         })
     },
 

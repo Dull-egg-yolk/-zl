@@ -91,7 +91,7 @@
    <script id="temp_edit" type="text/html">
         <option>选择分类</option>
         {{each data item}}
-            <option>{{item.name}}</option>
+            <option value={{item.id}}>{{item.name}}</option>
         {{/each}}
    </script>
    <script>
@@ -112,22 +112,12 @@
             // 使用fromdata
             var fd = new FormData(document.getElementById("myfrom"));
             // 调用
-            // article.publish(function (res) {
-            //     console.log(res);
-            //     // processData:false
-            //     // contentType:false
-            // })
-            $.ajax({
-                url:'http//localhost:8000/admin/article_publish',
-                type:"post",
-                data:fd,
-                processData:false,
-                contentType:false,
-                success:function(res){
-                    console.log(res);
-                    
-                }
+            article.publish(fd,function (res) {
+                console.log(res);
+                // processData:false
+                // contentType:false
             })
+           
         })
         // 调用
         

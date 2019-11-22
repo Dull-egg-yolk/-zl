@@ -146,7 +146,7 @@
         var curPage = 1; // 用来保存当前要查询的页数
         var type = '';   // 当前要搜索的文章类型.要保存是文章类型的编号，而不是文本
         var state = ''; // 当前要搜索的文章状态
-        
+        var curTotalPage ="";
         // 调用显示数据
         function getShow() {
             article.show(
@@ -158,6 +158,16 @@
                     // 分页插件
                     // 官网给的 复制粘贴
                     // 上面放给的ul 也是固定的 复制粘贴
+
+                     // 如果当前查询的结果得到的总页数与上一次查询得到的总页数不相同，则
+                    // 需要销毁分页插件，以再次更新
+                    if(res.totalPage != curTotalPage){
+                        console.log('总页数变化了',res.totalPage, )
+                        console.log('本次查询的总页数',res.totalPage)
+                        console.log('上一次查询的总页数',curTotalPage)
+                        $('#pagination-demo').twbsPagination('destroy');
+                    }
+                        curTotalPage = res.totalPage
                     $('#pagination-demo').twbsPagination({
                         totalPages: res.totalPage, // 总页数在res里
                         visiblePages: 6, // 可见页数
@@ -207,8 +217,7 @@
             type = $("#selCategory").val()
             // 匹配页数
             curPage = 1
-            getShow();
-        })
+            getShow();        })
 
 
 // ############################################################

@@ -9,13 +9,19 @@ var article = {
         })
     },
 
-    // publish:function (callback) {
-    //     $.post(PROT.article_publish,
-    //         {data:fd, processData:false,contentType:false},
-    //         function (res) {
-    //         callback(res)
-    //     })
-    // },
+    publish:function (fd,callback) {
+        $.ajax({
+            url:PROT.article_publish,
+            type:"post",
+            data:fd,
+            processData:false,
+            contentType:false,
+            success:function(res){
+               callback(res)
+                
+            }
+        })
+    },
 
     del:function (id,callback) {
         $.get(PROT.article_del,{id:id},function (res) {

@@ -274,6 +274,27 @@
             window.parent.setMenu(1,1);
         })
     </script>
+    <!-- 引入文件 -->
+    <script src="./js/template-web.js"></script>
+    <script src="./js/utils/port.js"></script>
+    <script src="./js/utils/category.js"></script>
+    <!-- 模板引擎 -->
+    <script id="table_temp" type="text/html">
+        {{each data item}}
+        <option>所有分类</option>
+        <option>{{item.name}}</option>
+        
+        {{/each}}
+    </script>
+    <!-- 获取信息 -->
+    <!-- 调用 -->
+    <script>
+        category.show(function (res) {
+            console.log(res);
+            var tempStr = template("table_temp",res)
+            $('#selCategory').html(tempStr);
+        })
+    </script>
 
 </body>
 

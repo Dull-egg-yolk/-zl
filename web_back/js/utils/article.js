@@ -29,8 +29,24 @@ var article = {
         })
     },
 
-    edit:function (callback) {
-        $.post(PROT.article_edit,function (res) {
+    edit:function (fd,callback) {
+        $.ajax({
+            url:PROT.article_edit,
+            type:"post",
+            processData:false,
+            contentType:false,
+            data:fd,
+            success:function (res) {
+                // console.log(res);
+                // console.log(PROT.article_edit);
+                callback(res)
+                
+            }
+        })
+    },
+
+    get_edit:function (id,callback) {
+        $.get(PROT.article_show,{id:id},function (res) {
             callback(res)
         })
     }

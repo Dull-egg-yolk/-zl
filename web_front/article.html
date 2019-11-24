@@ -28,23 +28,23 @@
         <div class="menu">
             <div class="menu_collapse fl">
                 <a href="javascript:;" class="level_one"><i class="fa fa-list-ul"></i>全部分类</a>
-                <ul class="level_two">
-                    <li class="up"></li>
+                <ul class="level_two" id="level_two">
+                    <!-- <li class="up"></li>
                     <li><a href="#">最 新</a></li>
                     <li><a href="#">科 技</a></li>
                     <li><a href="#">股 市</a></li>
                     <li><a href="#">商 品</a></li>
                     <li><a href="#">外 汇</a></li>
-                    <li><a href="#">公 司</a></li>
+                    <li><a href="#">公 司</a></li> -->
                 </ul>
             </div>
-            <ul class="left_menu fl">
-                <li><a href="#">最 新</a></li>
+            <ul class="left_menu fl" id="leftmenu">
+                <!-- <li><a href="#">最 新</a></li>
                 <li><a href="#">科 技</a></li>
                 <li><a href="#">股 市</a></li>
                 <li><a href="#">商 品</a></li>
                 <li><a href="#">外 汇</a></li>
-                <li><a href="#">公 司</a></li>
+                <li><a href="#">公 司</a></li> -->
             </ul>
             <ul class="right_menu fr">
                 <li><a href="#">科技专题</a></li>
@@ -58,10 +58,10 @@
             <div class="breadcrumb">
                 当前位置： <a href="#">首页</a> &gt; <a href="#">科技</a> &gt; 文章详情
             </div>
-            <h3 class="article_title">马斯克的新花样？连接人脑和电脑的初创公司又筹了一笔钱</h3>
-            <div class="article_info">杰克 发布于 2019-05-08 07:08:46&nbsp;&nbsp;&nbsp;分类: 奇趣事&nbsp;&nbsp;&nbsp;阅读:
+            <h3 class="article_title" id="title">马斯克的新花样？连接人脑和电脑的初创公司又筹了一笔钱</h3>
+            <div class="article_info"><span id="author">杰克</span> 发布于<span id="date"> 2019-05-08 07:08:46</span>&nbsp;&nbsp;&nbsp;分类: <span id="type">奇趣事</span>&nbsp;&nbsp;&nbsp;阅读:
                 (98)&nbsp;&nbsp;&nbsp;评论: (0)</div>
-            <div class="article_con">
+            <div class="article_con" id="content">
 
                 <p>“上天入地”还不够？硅谷“钢铁侠”马斯克名下一家低调的公司最近又融了一大笔钱。</p>
 
@@ -83,21 +83,21 @@
             <form action="" class="comment_form">
                 <div class="form_group">
                     <label>用户名：</label>
-                    <input type="text" placeholder="请输入用户名" class="comment_name">
+                    <input id="comment_name"type="text" placeholder="请输入用户名" class="comment_name">
                 </div>
                 <div class="form_group">
                     <label>评论内容：</label>
-                    <textarea placeholder="请发表您的评论" class="comment_input"></textarea>
+                    <textarea id='comment_content'placeholder="请发表您的评论" class="comment_input"></textarea>
                 </div>
                 <div class="form_group">
-                    <input type="submit" name="" value="评 论" class="comment_sub"></div>
+                    <input id="btn_comment"type="button" name="" value="评 论" class="comment_sub"></div>
             </form>
 
             <div class="comment_count">
                 4条评论
             </div>
 
-            <div class="comment_list_con">
+            <div class="comment_list_con" id="comment_list">
                 <div class="comment_detail_list">
                     <div class="person_pic fl">乔</div>
                     <div class="name_time fl"><b>虚竹</b><span>4小时前</span></div>
@@ -204,7 +204,101 @@
         <p>CopyRight © 2019 深圳大事件信息技术股份有限公司 All Rights Reserved</p>
         <p>电话：0755-****888 粤ICP备*******8号</p>
     </div>
+<!-- 引入文件 -->
+<script src="./js/jquery-1.12.4.min.js"></script>
+<script src="./js/utils/port.js"></script>
+<script src="./js/utils/category.js"></script>
+<script src="./js/utils/article.js"></script>
+<script src="./js/utils/common.js"></script>
+<script src="../web_back/js/template-web.js"></script>
 
+
+<script id="temp_ul" type="text/html">
+    {{each data item index}}
+    {{if index == 0}}
+    <li class="up"><a href="#">{{item.name}}</a></li>
+    {{else}}
+    <li><a href="#">{{item.name}}</a></li>
+    {{/if}}
+    {{/each}}
+</script>
+
+<script id="left_menu" type="text/html">
+    {{each data item}}
+    <li><a href="#">{{item.name}}</a></li>
+    {{/each}}
+</script>
+<script id="c_list" type="text/html">
+    {{each data item}}
+        <div class="comment_detail_list">
+            <div class="person_pic fl">{{item.name}}</div>
+            <div class="name_time fl"><b>{{item.name}}</b><span>{{item.dt}}</span></div>
+            <div class="comment_text fl">
+               {{item.content}}
+            </div>
+        </div>
+    {{/each}}
+</script>
+
+
+<script>
+    // 调用
+    category.show(function (res) {
+        var htmlStr = template("temp_ul",res)
+        // console.log(res);
+        $("#level_two").html(htmlStr)
+
+        var html_str = template("left_menu",res)
+        $("#leftmenu").html(html_str)
+    })
+    
+</script>
+
+<script>
+    var id = location.search.substr(4)
+    // 调用
+    article.get_edit(id,function (res) {
+        // console.log(res);
+        $("#title").html(res.data.title)
+        $("#author").html(res.data.author)
+        $("#type").html(res.data.type)
+        $("#content").html(res.data.content)
+        
+    })
+
+    // 调用
+    function getShow() {
+        common.get(function (res) {
+            // console.log(res);
+            var htmlSTr = template("c_list",res)
+            $("#comment_list").html(htmlSTr)
+        })
+    }
+    getShow()
+     //点击 评论按钮
+    $("#btn_comment").click(function () {
+        // 获取用户名
+        // 获取评论内容
+        var name = $("#comment_name").val().trim()
+        console.log(name);
+        
+        var content = $("#comment_content").val().trim()
+        console.log(content);
+        
+        if(name == "" || content ===""){
+            alert("不能为空哦")
+            return
+        }
+        common.add(name,content,id,function (res) {
+            console.log(res);
+            if(res.code === 200){
+                getShow()
+            }
+        })
+        
+    })
+
+</script>
 </body>
 
 </html>

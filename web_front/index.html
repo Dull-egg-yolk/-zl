@@ -229,7 +229,7 @@
     {{each data item index}}
     {{if index==0}}
         <li class="first">
-            <a href="#"><img src="{{item.cover}}" alt=""></a>
+            <a href="./article.html?id={{item.id}}"><img src="{{item.cover}}" alt=""></a>
             <p>{{item.title}}</p>
         </li>
     {{else}}
@@ -258,6 +258,8 @@
         var html_Str = template("temp_focus",res)
         $("#focus_temp").html(html_Str)
     })
+
+   
     
 </script>
 

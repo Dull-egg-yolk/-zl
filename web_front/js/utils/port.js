@@ -13,5 +13,10 @@ var PROT = {
     article_show:baseURL+"/admin/search",
     article_del:baseURL+"/admin/article_delete",
     article_publish:baseURL+"/admin/article_publish",
-    article_edit:baseURL+"/admin/article_edit"
+    article_edit:baseURL+"/admin/article_edit",
+
+
+    common_show:baseURL+"/admin/comment_search",
+    common_add:baseURL+"/post_comment",
+    common_get:baseURL+"/get_comments"
 }
